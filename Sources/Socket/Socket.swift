@@ -1318,7 +1318,7 @@ public class Socket: SocketReader, SocketWriter {
 			throw Error(code: Socket.SOCKET_ERR_UNABLE_TO_CREATE_SOCKET, reason: self.lastError())
 		}
 
-		try self.ignoreSIGPIPE(on: self.socketfd)
+		try? self.ignoreSIGPIPE(on: self.socketfd)
 
 		// Create the signature...
 		try self.signature = Signature(
@@ -1356,7 +1356,7 @@ public class Socket: SocketReader, SocketWriter {
 			let type = SOCK_STREAM
 		#endif
 		
-		try self.ignoreSIGPIPE(on: self.socketfd)
+		try? self.ignoreSIGPIPE(on: self.socketfd)
 
 		if path != nil {
 
@@ -1906,7 +1906,7 @@ public class Socket: SocketReader, SocketWriter {
 			throw Error(code: Socket.SOCKET_ERR_WRONG_PROTOCOL, reason: "Unable to determine connected socket protocol family.")
 		}
 
-		try self.ignoreSIGPIPE(on: self.socketfd)
+		try? self.ignoreSIGPIPE(on: self.socketfd)
 
 		try self.signature = Signature(
 			protocolFamily: Int32(info!.pointee.ai_family),
